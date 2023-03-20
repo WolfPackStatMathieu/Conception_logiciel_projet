@@ -1,16 +1,23 @@
 from fastapi import  FastAPI #BackgroundTasks,
 from app.controller.application_router import router
 import sqlite3
+from sqlite_utils import Database
 import datetime
 
 app = FastAPI()
 
 app.include_router(router)
+
+db = Database("database.db")
+db_conn = db.conn
+
 # Connect to SQLite database
-conn = sqlite3.connect('mydatabase.db')
+conn = sqlite3.connect('database.db')
 
 @app.on_event("startup")
 async def startup():
+
+
     # Set up a background task that runs every 60 seconds
     async def check_objects(background_tasks: BackgroundTasks):
         while True:

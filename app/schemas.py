@@ -13,7 +13,7 @@ class NoteBaseSchema(BaseModel):
     updatedAt: datetime | None = None
 
     class Config:
-        orm_mode = True
+        orm_mode = True #tells Pydantic to map the models to ORM objects
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
 

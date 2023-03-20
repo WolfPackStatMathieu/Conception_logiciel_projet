@@ -60,3 +60,15 @@ def get_post(noteId: str, db: Session = Depends(get_db)):
     return {"status": "success", "note": note}
 
 
+# [...] delete record
+@router.delete('/{noteId}')
+def delete_post(noteId: str, db: Session = Depends(get_db)):
+    note_query = db.query(models.Note).filter(models.Note.id == noteId)
+    note = note_query.first()
+    if not note:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'No note with this id: {id} found')
+    note_query.delete(synchronize_session=False)
+    db.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+

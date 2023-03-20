@@ -63,8 +63,16 @@ def get_post(noteId: str, db: Session = Depends(get_db)):
 # [...] delete record
 @router.delete('/{noteId}')
 def delete_post(noteId: str, db: Session = Depends(get_db)):
+    # The fifth and final path operation function will perform a DELETE
+    # operation to remove a single record from the database. When a
+    # DELETE request is made to the /api/notes/{noteId} endpoint,
+    # FastAPI will evoke this route controller to remove the record
+    # that matches the query.
     note_query = db.query(models.Note).filter(models.Note.id == noteId)
     note = note_query.first()
+    # The route handler will first query the database to check if a
+    # record with that ID exists before the .delete() method will be
+    # called to remove that record from the database.
     if not note:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'No note with this id: {id} found')

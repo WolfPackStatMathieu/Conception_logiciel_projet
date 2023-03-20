@@ -48,3 +48,15 @@ def update_note(noteId: str, payload: schemas.NoteBaseSchema, db: Session = Depe
     # the database and returned the updated record to the client.
     db.refresh(db_note)
     return {"status": "success", "note": db_note}
+
+
+# [...] get single record
+@router.get('/{noteId}')
+def get_post(noteId: str, db: Session = Depends(get_db)):
+    note = db.query(models.Note).filter(models.Note.id == noteId).first()
+    if not note:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"No note with this id: {id} found")
+    return {"status": "success", "note": note}
+
+

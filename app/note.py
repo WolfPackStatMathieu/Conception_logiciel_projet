@@ -27,6 +27,10 @@ def create_note(payload: schemas.NoteBaseSchema, db: Session = Depends(get_db)):
 # [...] edit record
 @router.patch('/{noteId}')
 def update_note(noteId: str, payload: schemas.NoteBaseSchema, db: Session = Depends(get_db)):
+    # In the code below, we created the database query by chaining
+    # the .query() and .filter() methods. After that, we evoked
+    # the .first() method to return the first record that matches
+    # our query.
     note_query = db.query(models.Note).filter(models.Note.id == noteId)
     db_note = note_query.first()
 
@@ -34,8 +38,13 @@ def update_note(noteId: str, payload: schemas.NoteBaseSchema, db: Session = Depe
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'No note with this id: {noteId} found')
     update_data = payload.dict(exclude_unset=True)
+    # Next, we called the .dict() method on the payload JSON object
+    # and assigned the result to the update_data variable before
+    # passing it to the .update() method.
     note_query.filter(models.Note.id == noteId).update(update_data,
                                                        synchronize_session=False)
     db.commit()
+    # Finally, we called the .commit() method to persist the data in
+    # the database and returned the updated record to the client.
     db.refresh(db_note)
     return {"status": "success", "note": db_note}

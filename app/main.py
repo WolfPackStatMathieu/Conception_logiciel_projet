@@ -1,9 +1,11 @@
 from fastapi import  FastAPI #BackgroundTasks,
+from app.controller.application_router import router
 import sqlite3
 import datetime
 
 app = FastAPI()
 
+app.include_router(router)
 # Connect to SQLite database
 conn = sqlite3.connect('mydatabase.db')
 

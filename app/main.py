@@ -1,4 +1,16 @@
 
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get('/hello')
+def index():
+    return {'message': 'Hello world!'}
+
+@app.get('/demande/{id}')
+def get_demande(id):
+    return {'message': f'Demande with id {id}'}
+
 
 
 # @app.on_event("startup")

@@ -1,5 +1,6 @@
 
 from fastapi import FastAPI
+from enum import Enum
 
 app = FastAPI()
 
@@ -11,6 +12,15 @@ def index():
 def get_all_demande():
     return {'message': 'toutes les demandes'}
 
+
+class DemandeType(str, Enum):
+    texte= 'texte'
+    image= 'image'
+    fichier= 'fichier'
+
+@app.get('/demande/type/{type}')
+def get_demande_type(type: DemandeType):
+    return {'message': f'Demande type {type}'}
 
 @app.get('/demande/{id}')
 def get_demande(id: int):

@@ -4,14 +4,20 @@ from enum import Enum
 
 app = FastAPI()
 
-@app.get('/hello')
-def index():
-    return {'message': 'Hello world!'}
+
 
 @app.get(
     '/demande/all',
-    tags=['demande', 'all'])
+    tags=['demande', 'all'],
+    summary='récupère toutes les demandes',
+    description='This api call fetches all demandes')
 def get_all_demande():
+    """
+    Récupère toutes les demandes
+
+
+
+    """
     return {'message': 'toutes les demandes'}
 
 
@@ -25,8 +31,19 @@ class DemandeType(str, Enum):
 def get_demande_type(type: DemandeType):
     return {'message': f'Demande type {type}'}
 
-@app.get('/demande/{id}', status_code=status.HTTP_200_OK, tags=['demande', 'id'])
+
+
+@app.get('/demande/{id}',
+         status_code=status.HTTP_200_OK,
+         tags=['demande', 'id'],
+         summary='trouve une demande par son id',
+         description='This api call find a demande by its unique id')
 def get_demande(id: int, response: Response):
+    """Récupère une demande par son id
+
+    - **id** mandatory path parameter
+
+    """
     if id > 5:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {'error': f'Demande {id} not found'}

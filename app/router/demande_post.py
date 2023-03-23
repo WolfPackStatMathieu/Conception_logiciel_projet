@@ -1,10 +1,16 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
+
 
 router = APIRouter(
     prefix='/demande',
     tags=['demande']
 )
-
-@router.post('/')
-def create_post():
+class DemandeModel(BaseModel):
     pass
+
+
+@router.post('/',
+             summary='crée une demande d\'envoi de mail')
+def create_demande(demande: DemandeModel):
+    return "ok"

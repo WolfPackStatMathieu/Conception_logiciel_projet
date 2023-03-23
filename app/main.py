@@ -1,5 +1,5 @@
 
-from fastapi import FastAPI
+from fastapi import FastAPI, status, Response
 from enum import Enum
 
 app = FastAPI()
@@ -8,7 +8,9 @@ app = FastAPI()
 def index():
     return {'message': 'Hello world!'}
 
-@app.get('/demande/all')
+@app.get(
+    '/demande/all',
+    tags=['demande', 'all'])
 def get_all_demande():
     return {'message': 'toutes les demandes'}
 
@@ -18,13 +20,19 @@ class DemandeType(str, Enum):
     image= 'image'
     fichier= 'fichier'
 
-@app.get('/demande/type/{type}')
+@app.get('/demande/type/{type}',
+         tags=['demande', 'id'])
 def get_demande_type(type: DemandeType):
     return {'message': f'Demande type {type}'}
 
-@app.get('/demande/{id}')
-def get_demande(id: int):
-    return {'message': f'Demande with id {id}'}
+@app.get('/demande/{id}', status_code=status.HTTP_200_OK, tags=['demande', 'id'])
+def get_demande(id: int, response: Response):
+    if id > 5:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {'error': f'Demande {id} not found'}
+    else:
+        response.status_code = status.HTTP_200_OK
+        return {'message': f'Demande with id {id}'}
 
 
 

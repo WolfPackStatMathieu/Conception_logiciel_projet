@@ -7,9 +7,15 @@ app = FastAPI()
 def index():
     return {'message': 'Hello world!'}
 
+@app.get('/demande/all')
+def get_all_demande():
+    return {'message': 'toutes les demandes'}
+
+
 @app.get('/demande/{id}')
-def get_demande(id):
+def get_demande(id: int):
     return {'message': f'Demande with id {id}'}
+
 
 
 

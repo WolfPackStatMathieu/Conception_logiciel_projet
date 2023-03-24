@@ -49,4 +49,5 @@ def get_demande(id: int, db: Session = Depends(get_db)):
 # Delete Demande
 @router.get('/delete/{id}')
 def delete(id: int, db: Session = Depends(get_db)):
+    log("MyAPI", f"Call to delete demande {id}")
     return db_demande.delete_demande(db, id)

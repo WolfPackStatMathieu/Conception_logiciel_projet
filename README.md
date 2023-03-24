@@ -1,7 +1,10 @@
 # Conception_logiciel_projet
-## run the following command
+## run the following command to launch app and run tests
 
 ```
+git clone https://github.com/WolfPackStatMathieu/Conception_logiciel_projet.git
+pip install -r requirements.txt
+pytest
 uvicorn app.main:app --reload
 ```
 
@@ -23,6 +26,4 @@ graph
 
 ```
 
-
-
-# Bug identifiés accessibles par # TODO
+# Bug identifiés accessibles par # TODO  :)

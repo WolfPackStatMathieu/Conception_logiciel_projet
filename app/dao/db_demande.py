@@ -8,7 +8,7 @@ def create_demande(db: Session, request: DemandeBase):
     new_demande = DbDemande(
         destinataire = request.destinataire,
         expediteur = request.expediteur,
-        password = Hash(request.password),
+        password = Hash.bcrypt(request.password),
         sujet = request.sujet,
         message = request.message,
         mois = request.mois,

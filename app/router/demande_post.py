@@ -6,7 +6,7 @@ import datetime as dt
 from sqlalchemy.orm import Session
 from dao.database import get_db
 from dao import db_demande
-from app.dao.schema import DemandeBase
+from app.dao.schema import DemandeBase, DemandeDisplay
 
 router = APIRouter(
     prefix='/demande',
@@ -79,7 +79,7 @@ class DemandeModel(BaseModel):
 
 
 # Create Demande
-@router.post('/',
+@router.post('/', response_model=DemandeDisplay,
              summary='crée une demande d\'envoi de mail',
              description="la demande d\'envoi est créée avec la date d\'envoi par défaut égale au moment de la requete")
 def create_demande(request: DemandeBase , db: Session = Depends(get_db)):

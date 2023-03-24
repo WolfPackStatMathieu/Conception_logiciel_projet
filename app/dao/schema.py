@@ -9,7 +9,7 @@ year = now.year
 month = now.month
 day = now.day
 hour_of_now = now.hour
-minutes_of_now = now.minute + 1
+minutes_of_now = (now.minute + 1 if (now.minute + 1) <60 else 0)
 
 
 class DemandeBase(BaseModel):

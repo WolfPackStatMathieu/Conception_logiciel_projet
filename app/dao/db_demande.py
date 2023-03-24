@@ -21,9 +21,12 @@ def create_demande(db: Session, request: DemandeBase):
         est_envoye = request.est_envoye
     )
     db.add(new_demande)
+    # identifiant =
     db.commit()
-    db.refresh(new_demande)
-    return new_demande
+    db.refresh(new_demande)# refresh updates given object in the session with its state in the DB
+    # (and can also only refresh certain attributes - search for documentation)
+
+    return new_demande.id # is the automatically assigned primary key ID given in the database.
 
 
 def get_all_demandes(db: Session):
@@ -39,14 +42,14 @@ def get_demande_to_send(db: Session):
     day = now.day
     hour_of_now = now.hour
     minutes_of_now = now.minute
-
+    # TODO le filtre n'est pas bon. Il faut appliquer les filtres 1 par 1, ou utiliser un objet date
     demandes = db.query(DbDemande).filter(DbDemande.est_envoye == False).filter(DbDemande.mois <= month).filter(DbDemande.jour <= day).filter(DbDemande.heure <= hour_of_now).filter(DbDemande.minutes <= minutes_of_now).all()
     return demandes
 
 
 
 def update_demande(db: Session, id: int, request: DemandeBase):
-    demande = db.query(DbDemande).filter(DbDemande.id == id)
+    demande = db.query(DbDemande).filter(DbDemande.identifiant == id)
     # Handle any exceptions
     demande.update({
         DbDemande.destinataire: request.destinataire,
@@ -64,7 +67,7 @@ def update_demande(db: Session, id: int, request: DemandeBase):
     return 'ok'
 
 def delete_demande(db: Session, id: int):
-    demande = db.query(DbDemande).filter(DbDemande.id == id).first()
+    demande = db.query(DbDemande).filter(DbDemande.identifiant== id).first()
     # Handle any exceptions
     db.delete(demande)
     db.commit()

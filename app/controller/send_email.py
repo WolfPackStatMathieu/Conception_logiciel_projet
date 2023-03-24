@@ -7,7 +7,7 @@ from app.router import demande_post
 
 def send_email(demande: DemandeBase):
     # Create SMTP connection
-    smtp_server = "smtp-mail.outlook.com"
+    smtp_server = "smtp-mail.outlook.com" # on utilise le serveur hotmail
     port = 587 # StartTLS
     sender_email = demande.expediteur
     sender_password = demande.password
@@ -26,3 +26,10 @@ def send_email(demande: DemandeBase):
         # connection.login(user=, password=)
 
 
+def check_and_send():
+    #Query database for items with est_envoye == False
+    demandes = db_demande.get_demande_to_send()
+    for demande in demandes:
+        if not demande.est_envoye:
+            # send email and update status
+            send_email(demande)

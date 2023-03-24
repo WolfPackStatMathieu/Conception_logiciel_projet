@@ -20,7 +20,8 @@ router = APIRouter(
              status_code=status.HTTP_200_OK,
             #  response_model= DemandeDisplay, # pour enlever le password de la reponse
              summary='crée une demande d\'envoi de mail avec hotmail.com',
-             description="la demande d\'envoi est créée avec la date d\'envoi par défaut égale au moment de la requete. Il faut utiliser @hotmail.com")
+             description="la demande d\'envoi est créée avec la date d\'envoi par défaut égale au moment de la requete. Il faut utiliser @hotmail.com",
+             response_description='l\'identifiant de la demande')
 def create_demande(request: DemandeBase , db: Session = Depends(get_db)):
     log("MyAPI", f"Call to create demande")
     return db_demande.create_demande(db, request)

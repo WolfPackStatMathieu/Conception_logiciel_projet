@@ -1,7 +1,9 @@
 # Conception_logiciel_projet
 ## run the following command
 
-```uvicorn app.main:app --reload```
+```
+uvicorn app.main:app --reload
+```
 
 # Bobby envoie des mails
 

@@ -16,10 +16,10 @@ Enfin, il peut connaître les demandes qui doivent être envoyées grâce à /de
 
 # architecture
 ```mermaid
-graph architecture
+graph
     App[app] <-->|HTTP| OFFAPI(endpoints)
-    App[app API] -->|TCP/IP| BDD
-    App[app] -->|SMTP| serveur mail
+    App[app API] --> BDD
+    App[app] -->|SMTP| serveur_mail
 
 ```
 

@@ -1,12 +1,15 @@
 
 from fastapi import FastAPI, APIRouter, status, Response
-from enum import Enum
 from app.router import demande_get
 from app.router import demande_post
+from app.dao import models
+from app.dao.database import engine
 
 app = FastAPI()
 app.include_router(demande_get.router)
 app.include_router(demande_post.router)
+
+models.Base.metadata.create_all(engine)
 
 
 # @app.on_event("startup")

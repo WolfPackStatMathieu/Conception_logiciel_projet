@@ -18,6 +18,7 @@ class DemandeModel(BaseModel):
     heure: int
     minutes: int
     id: int
+    est_envoye : bool=False
 
     @validator('destinataire')
     def destinataire_must_contain_arobase(cls, v):
@@ -58,4 +59,4 @@ class DemandeModel(BaseModel):
 @router.post('/',
              summary='crée une demande d\'envoi de mail')
 def create_demande(demande: DemandeModel):
-    return {'data': demande.minutes}
+    return {'data': demande}

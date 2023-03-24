@@ -2,7 +2,7 @@ from dao.database import Base
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import Integer, String, Boolean
 
-class DbUSer(Base):
+class DbDemande(Base):
     __tablename__ = 'demandes'
     id = Column(Integer, primary_key = True, index= True)
     destinataire = Column(String)

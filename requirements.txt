@@ -4,3 +4,5 @@ pydantic
 datetime
 typing
 sqlalchemy
+passlib
+bcrypt

@@ -9,7 +9,7 @@ from app.dao import db_demande
 
 router = APIRouter(prefix='/demande', tags=['demande'])
 
-
+# Read all demandes
 @router.get(
     '/all',
     tags=['all'],
@@ -25,24 +25,25 @@ def get_all_demandes(db: Session = Depends(get_db)):
     return db_demande.get_all_demandes(db)
 
 
-
+# Read one Demande
 
 @router.get('/{id}',
          status_code=status.HTTP_200_OK,
          tags=['id'],
          summary='trouve une demande par son id',
          description='This api call find a demande by its unique id',
-         response_description='la demande dont l\'id a été fourni en paramètre')
-def get_demande(id: int, response: Response):
+         response_description='la demande dont l\'id a été fourni en paramètre'
+        #  , response_model=List[DemandeDisplay]
+        )
+def get_demande(id: int, db: Session = Depends(get_db)):
     """Récupère une demande par son id
 
     - **id** mandatory path parameter
 
     """
-    if id > 5:
-        response.status_code = status.HTTP_404_NOT_FOUND
-        return {'error': f'Demande {id} not found'}
-    else:
-        response.status_code = status.HTTP_200_OK
-        return {'message': f'Demande with id {id}'}
+    return db_demande.get_demande(db, id)
 
+# Delete Demande
+@router.get('/delete/{id}')
+def delete(id: int, db: Session = Depends(get_db)):
+    return db_demande.delete_demande(db, id)

@@ -23,10 +23,10 @@ def create_demande(request: DemandeBase , db: Session = Depends(get_db)):
     return db_demande.create_demande(db, request)
 
 
-# Read Demande
 
 #Update Demande
-
-# Delete Demande
+@router.post('{id}/update')
+def update_demande(id: int, request: DemandeBase, db: Session= Depends(get_db)):
+    return db_demande.update_demande(db, id, request)
 
 

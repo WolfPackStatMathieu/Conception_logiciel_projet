@@ -1,3 +1,5 @@
+"""Contient les requetes en base de données des demandes
+"""
 from sqlalchemy.orm.session import Session
 from app.dao.schema import DemandeBase
 from app.dao.models import DbDemande
@@ -27,3 +29,26 @@ def get_all_demandes(db: Session):
 
 def get_demande(db: Session, id:int):
     return db.query(DbDemande).filter(DbDemande.id == id).first()
+
+def update_demande(db: Session, id: int, request: DemandeBase):
+    demande = db.query(DbDemande).filter(DbDemande.id == id)
+    demande.update({
+        DbDemande.destinataire: request.destinataire,
+        DbDemande.expediteur: request.expediteur,
+        DbDemande.password: Hash.bcrypt(request.password),
+        DbDemande.sujet: request.sujet,
+        DbDemande.message: request.message,
+        DbDemande.mois: request.mois,
+        DbDemande.jour: request.jour,
+        DbDemande.heure: request.heure,
+        DbDemande.minutes: request.minutes,
+        DbDemande.est_envoye: request.est_envoye
+    })
+    db.commit()
+    return 'ok'
+
+def delete_demande(db: Session, id: int):
+    demande = db.query(DbDemande).filter(DbDemande.id == id).first()
+    db.delete(demande)
+    db.commit()
+    return 'ok'

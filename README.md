@@ -14,7 +14,7 @@ Il peut récupérer toutes les demandes sur /demande/all.
 Enfin, il peut connaître les demandes qui doivent être envoyées grâce à /demande/check_and_send
 
 
-# architecture
+# Diagramme d'architecture
 ```mermaid
 graph
     App[app] <-->|HTTP| OFFAPI(endpoints)

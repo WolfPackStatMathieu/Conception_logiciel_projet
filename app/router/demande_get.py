@@ -34,8 +34,17 @@ def get_demande_to_send(db: Session = Depends(get_db)):
     log("MyAPI", f"Call to get_demande_to_send")
     return db_demande.get_demande_to_send(db)
 
-# Read one Demande
+#check and send email
+@router.get('/check_and_send')
+def check_and_send(db: Session = Depends(get_db)):
+    #QUery database for items with est_envoye == False
+    demandes = db_demande.get_demande_to_send(db)
+    # for demande in demandes:
+    #     if demande.
 
+
+
+# Read one Demande
 @router.get('/{id}',
          status_code=status.HTTP_200_OK,
          tags=['id'],

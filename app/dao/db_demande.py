@@ -39,6 +39,7 @@ def get_demande_to_send(db: Session):
     day = now.day
     hour_of_now = now.hour
     minutes_of_now = now.minute
+
     demandes = db.query(DbDemande).filter(DbDemande.est_envoye == False).filter(DbDemande.mois <= month).filter(DbDemande.jour <= day).filter(DbDemande.heure <= hour_of_now).filter(DbDemande.minutes <= minutes_of_now).all()
     return demandes
 

@@ -12,6 +12,7 @@ router = APIRouter(prefix='/demande', tags=['demande'])
 # Read all demandes
 @router.get(
     '/all',
+    status_code=status.HTTP_200_OK,
     tags=['all'],
     summary='récupère toutes les demandes',
     description='This api call fetches all demandes',

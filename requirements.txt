@@ -6,3 +6,5 @@ typing
 sqlalchemy
 passlib
 bcrypt
+requests
+pytest

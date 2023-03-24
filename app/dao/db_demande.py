@@ -28,10 +28,12 @@ def get_all_demandes(db: Session):
     return db.query(DbDemande).all()
 
 def get_demande(db: Session, id:int):
+    # Handle any exceptions
     return db.query(DbDemande).filter(DbDemande.id == id).first()
 
 def update_demande(db: Session, id: int, request: DemandeBase):
     demande = db.query(DbDemande).filter(DbDemande.id == id)
+    # Handle any exceptions
     demande.update({
         DbDemande.destinataire: request.destinataire,
         DbDemande.expediteur: request.expediteur,
@@ -49,6 +51,7 @@ def update_demande(db: Session, id: int, request: DemandeBase):
 
 def delete_demande(db: Session, id: int):
     demande = db.query(DbDemande).filter(DbDemande.id == id).first()
+    # Handle any exceptions
     db.delete(demande)
     db.commit()
     return 'ok'

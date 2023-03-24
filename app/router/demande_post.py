@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, Response, status
 from pydantic import BaseModel, ValidationError, validator
 import datetime as dt
 from typing import Optional
@@ -16,6 +16,7 @@ router = APIRouter(
 
 # Create Demande
 @router.post('/',
+             status_code=status.HTTP_200_OK,
             #  response_model= DemandeDisplay, # pour enlever le password de la reponse
              summary='crée une demande d\'envoi de mail avec hotmail.com',
              description="la demande d\'envoi est créée avec la date d\'envoi par défaut égale au moment de la requete. Il faut utiliser @hotmail.com")

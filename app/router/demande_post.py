@@ -81,3 +81,6 @@ def create_demande(demande: DemandeModel, id: int):
         'id': id,
         'data': demande
         }
+
+def required_functionality():
+    return {'message': 'Learning FastAPI is important'}

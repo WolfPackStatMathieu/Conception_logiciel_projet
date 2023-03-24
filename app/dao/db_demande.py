@@ -20,3 +20,10 @@ def create_demande(db: Session, request: DemandeBase):
     db.commit()
     db.refresh(new_demande)
     return new_demande
+
+
+def get_all_demandes(db: Session):
+    return db.query(DbDemande).all()
+
+def get_demande(db: Session, id:int):
+    return db.query(DbDemande).filter(DbDemande.id == id).first()

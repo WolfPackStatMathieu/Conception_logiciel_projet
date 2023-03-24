@@ -9,20 +9,20 @@ year = now.year
 month = now.month
 day = now.day
 hour_of_now = now.hour
-minutes_of_now = now.minute
+minutes_of_now = now.minute + 1
 
 
 class DemandeBase(BaseModel):
     # id = int
-    destinataire: str = Body('mathieu993@hotmail.com',
+    destinataire: str = Body('mathieu993test@hotmail.com',
                              min_length=1,
                              regex= '^[A-Za-z0-9]*@hotmail.com') #email
-    expediteur: str= Body('mathieu993@hotmail.com',
+    expediteur: str= Body('mathieu993test@hotmail.com',
                             min_length=1,
                             regex= '^[A-Za-z0-9]*@hotmail.com') #email
-    password: str
-    sujet: str
-    message: str
+    password: str =Body('1234Majuscule')
+    sujet: str = Body('Un super sujet')
+    message: str = Body('Pour un super message une minute après')
     mois: int = month
     jour: int = day
     heure: int =hour_of_now
@@ -72,11 +72,13 @@ class DemandeDisplay(BaseModel):
     # id = int
     destinataire: str
     expediteur: str
+
     sujet: str
     message: str
     mois: int
     jour: int
     heure: int
     minutes: int
+    est_envoye : bool
     class Config():
         orm_mode = True

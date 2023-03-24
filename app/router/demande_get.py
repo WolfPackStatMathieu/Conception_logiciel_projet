@@ -1,5 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi import APIRouter, status, Response
+from typing import List
+from app.dao.schema import DemandeBase, DemandeDisplay
+from sqlalchemy.orm.session import Session
+from app.dao.database import get_db
+from app.dao import db_demande
 
 
 router = APIRouter(prefix='/demande', tags=['demande'])
@@ -10,12 +15,16 @@ router = APIRouter(prefix='/demande', tags=['demande'])
     tags=['all'],
     summary='récupère toutes les demandes',
     description='This api call fetches all demandes',
-    response_description='la liste de toutes les demandes')
-def get_all_demande():
+    response_description='la liste de toutes les demandes'
+    # ,response_model=List[DemandeBase]
+    )
+def get_all_demandes(db: Session = Depends(get_db)):
     """
     Récupère toutes les demandes
     """
-    return {'message': 'toutes les demandes'}
+    return db_demande.get_all_demandes(db)
+
+
 
 
 @router.get('/{id}',

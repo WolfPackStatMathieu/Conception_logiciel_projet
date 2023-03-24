@@ -1,4 +1,4 @@
-from dao.database import Base
+from app.dao.database import Base
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import Integer, String, Boolean
 
@@ -7,7 +7,7 @@ class DbDemande(Base):
     id = Column(Integer, primary_key = True, index= True)
     destinataire = Column(String)
     expediteur = Column(String)
-    password = Column(String)
+    password = Column(String) #hashed
     sujet = Column(String)
     message = Column(String)
     mois = Column(Integer)

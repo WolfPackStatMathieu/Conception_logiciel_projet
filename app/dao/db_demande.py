@@ -1,7 +1,7 @@
 from sqlalchemy.orm.session import Session
 from app.dao.schema import DemandeBase
 from app.dao.models import DbDemande
-from dao.hash import Hash
+from app.dao.hash import Hash
 
 
 def create_demande(db: Session, request: DemandeBase):

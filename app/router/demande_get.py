@@ -5,7 +5,7 @@ from app.dao.schema import DemandeBase, DemandeDisplay
 from sqlalchemy.orm.session import Session
 from app.dao.database import get_db
 from app.dao import db_demande
-
+from app.custom_log import log
 
 router = APIRouter(prefix='/demande', tags=['demande'])
 
@@ -23,6 +23,7 @@ def get_all_demandes(db: Session = Depends(get_db)):
     """
     Récupère toutes les demandes
     """
+    log("MyAPI", "Call to get all demandes")
     return db_demande.get_all_demandes(db)
 
 
@@ -42,6 +43,7 @@ def get_demande(id: int, db: Session = Depends(get_db)):
     - **id** mandatory path parameter
 
     """
+    log("MyAPI", f"Call to get demande {id}")
     return db_demande.get_demande(db, id)
 
 # Delete Demande

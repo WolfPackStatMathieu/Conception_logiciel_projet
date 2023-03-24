@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class DemandeBase(BaseModel):
-    id = int
+    # id = int
     destinataire = str
     expediteur = str
     password = str

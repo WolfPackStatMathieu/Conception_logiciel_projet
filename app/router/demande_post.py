@@ -1,8 +1,12 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Depends
 from pydantic import BaseModel, ValidationError, validator
 import datetime as dt
 from typing import Optional, Set
 import datetime as dt
+from sqlalchemy.orm import Session
+from dao.database import get_db
+from dao import db_demande
+from app.dao.schema import DemandeBase
 
 router = APIRouter(
     prefix='/demande',
@@ -73,14 +77,19 @@ class DemandeModel(BaseModel):
             raise ValueError('must be between 0 and 59')
         return v
 
+
+# Create Demande
 @router.post('/',
              summary='crée une demande d\'envoi de mail',
              description="la demande d\'envoi est créée avec la date d\'envoi par défaut égale au moment de la requete")
-def create_demande(demande: DemandeModel, id: int):
-    return {
-        'id': id,
-        'data': demande
-        }
+def create_demande(request: DemandeBase , db: Session = Depends(get_db)):
+    return db_demande.create_demande(db, request)
 
-def required_functionality():
-    return {'message': 'Learning FastAPI is important'}
+
+# Read Demande
+
+#Update Demande
+
+# Delete Demande
+
+

@@ -1,6 +1,5 @@
 
 from fastapi import FastAPI, APIRouter, status, Response
-from enum import Enum
 from app.router import demande_get
 from app.router import demande_post
 

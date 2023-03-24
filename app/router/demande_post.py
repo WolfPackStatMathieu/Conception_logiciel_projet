@@ -1,24 +1,41 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 from pydantic import BaseModel, ValidationError, validator
 import datetime as dt
-from typing import Optional
+from typing import Optional, Set
+import datetime as dt
 
 router = APIRouter(
     prefix='/demande',
     tags=['demande']
 )
+
+now = dt.datetime.now()
+year = now.year
+month = now.month
+day = now.day
+hour_of_now = now.hour
+minutes_of_now = now.minute
 class DemandeModel(BaseModel):
-    destinataire: str
-    expediteur: str
+
+    destinataire: str = Body(...,
+                             min_length=1,
+                             regex= '^[A-Za-z0-9]*@[A-Za-z0-9]*$') #email
+    expediteur: str= Body(...,
+                            min_length=1,
+                            regex= '^[A-Za-z0-9]*@[A-Za-z0-9]*$') #email
     password: str
-    sujet: str
-    message: str
-    mois: int
-    jour: int
-    heure: int
-    minutes: int
+    sujet: str = Body(...,
+                      min_length=1,
+                      max_length=120)
+    message: str = Body(...,
+                        min_length=2,
+                        max_length=20000)
+    mois: int = month
+    jour: int = day
+    heure: int =hour_of_now
+    minutes: int =minutes_of_now
     id: int
-    est_envoye : bool=False
+    est_envoye : Optional[bool]=False
 
     @validator('destinataire')
     def destinataire_must_contain_arobase(cls, v):
@@ -57,6 +74,10 @@ class DemandeModel(BaseModel):
         return v
 
 @router.post('/',
-             summary='crée une demande d\'envoi de mail')
-def create_demande(demande: DemandeModel):
-    return {'data': demande}
+             summary='crée une demande d\'envoi de mail',
+             description="la demande d\'envoi est créée avec la date d\'envoi par défaut égale au moment de la requete")
+def create_demande(demande: DemandeModel, id: int):
+    return {
+        'id': id,
+        'data': demande
+        }

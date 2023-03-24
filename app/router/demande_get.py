@@ -7,6 +7,7 @@ from app.dao.database import get_db
 from app.dao import db_demande
 from app.custom_log import log
 
+
 router = APIRouter(prefix='/demande', tags=['demande'])
 
 # Read all demandes
@@ -26,6 +27,12 @@ def get_all_demandes(db: Session = Depends(get_db)):
     log("MyAPI", "Call to get all demandes")
     return db_demande.get_all_demandes(db)
 
+
+# Get Demandes to send
+@router.get('/to_send')
+def get_demande_to_send(db: Session = Depends(get_db)):
+    log("MyAPI", f"Call to get_demande_to_send")
+    return db_demande.get_demande_to_send(db)
 
 # Read one Demande
 

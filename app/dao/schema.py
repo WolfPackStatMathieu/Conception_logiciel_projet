@@ -13,7 +13,6 @@ minutes_of_now = (now.minute + 1 if (now.minute + 1) <60 else 0)
 
 
 class DemandeBase(BaseModel):
-    # id = int
     destinataire: str = Body('mathieu993test@hotmail.com',
                              min_length=1,
                              regex= '^[A-Za-z0-9]*@hotmail.com') #email
@@ -28,6 +27,7 @@ class DemandeBase(BaseModel):
     heure: int =hour_of_now
     minutes: int =minutes_of_now
     est_envoye : Optional[bool]=False
+    # identifiant: Optional[int]
 
 
     @validator('destinataire')
@@ -69,7 +69,7 @@ class DemandeBase(BaseModel):
 
 class DemandeDisplay(BaseModel):
     #on enlève le password du retour
-    # id = int
+    # identifiant= int
     destinataire: str
     expediteur: str
 

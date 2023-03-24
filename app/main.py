@@ -27,7 +27,7 @@ def send_email_to_be_sent(db: Session) -> None:
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60 * 60)  # 1 hour
+@repeat_every(seconds=60 )  # 1 minute
 def send_email_to_be_sent_task() -> None:
     session = get_db()
     with session as db:

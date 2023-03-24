@@ -39,8 +39,8 @@ def get_demande_to_send(db: Session = Depends(get_db)):
 def check_and_send(db: Session = Depends(get_db)):
     #QUery database for items with est_envoye == False
     demandes = db_demande.get_demande_to_send(db)
-    # for demande in demandes:
-    #     if demande.
+
+
 
 
 
@@ -50,7 +50,7 @@ def check_and_send(db: Session = Depends(get_db)):
          tags=['id'],
          summary='trouve une demande par son id',
          description='This api call find a demande by its unique id',
-         response_description='la demande dont l\'id a été fourni en paramètre'
+         response_description='la demande dont l\'identifianta été fourni en paramètre'
         #  , response_model=List[DemandeDisplay]
         )
 def get_demande(id: int, db: Session = Depends(get_db)):
